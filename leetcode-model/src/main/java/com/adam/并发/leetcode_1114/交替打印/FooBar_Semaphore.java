@@ -1,7 +1,7 @@
 package com.adam.并发.leetcode_1114.交替打印;
 
 //使用信号量打印
-class FooBar1 {
+class FooBar_Semaphore {
     private int n;
     final static Semaphore sa = new Semaphore(1);
     final static Semaphore sb = new Semaphore(0);

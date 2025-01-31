@@ -1,7 +1,7 @@
 package com.adam.并发.leetcode_1114.交替打印;
 
 // 使用synchronized锁
-class FooBar2 {
+class FooBar_Synchronized {
     private int n;
 
     private int m = 0;
