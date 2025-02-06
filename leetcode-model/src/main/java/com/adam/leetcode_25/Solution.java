@@ -1,5 +1,7 @@
 package com.adam.leetcode_25;
 
+import com.adam.listnode.ListNode;
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
