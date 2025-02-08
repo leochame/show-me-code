@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userBean" class="com.adam.spring.bean.User">
+        <property name="name" value="张三"/>
+        <property name="age" value="20"/>
+        <property name="addr" ref="addrBean"/>
+    </bean>
+
+
+    <bean id="addrBean" class="com.adam.spring.bean.User">
+        <property name="city" value="北京"/>
+        <property name="street" value="大兴区"/>
+        <property name="zipcode" value="1000001"/>
+    </bean>
+</beans>

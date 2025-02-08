@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="leetcode-model" />
         <module name="acm-model" />
+        <module name="leetcode-model" />
         <module name="refactoring" />
+        <module name="simple-spring" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
