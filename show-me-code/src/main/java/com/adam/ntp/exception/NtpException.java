@@ -1,4 +1,4 @@
-package com.adam.nio.ntp.exception;
+package com.adam.ntp.exception;
 
 // 基础异常类
 public class NtpException extends RuntimeException {

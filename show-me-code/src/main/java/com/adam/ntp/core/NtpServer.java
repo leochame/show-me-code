@@ -1,4 +1,4 @@
-package com.adam.nio.ntp.core;
+package com.adam.ntp.core;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;

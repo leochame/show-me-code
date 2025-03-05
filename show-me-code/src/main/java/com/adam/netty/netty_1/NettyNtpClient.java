@@ -137,7 +137,7 @@ public class NettyNtpClient {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            sleep(100);
+            sleep(100);
         }
 
     }

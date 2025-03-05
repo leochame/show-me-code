@@ -1,4 +1,4 @@
-package com.adam.nio.ntp.core;
+package com.adam.ntp.core;
 
 // 文件3: ClockCompensator.java
 public class ClockCompensator {

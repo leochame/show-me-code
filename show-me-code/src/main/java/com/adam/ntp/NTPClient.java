@@ -1,11 +1,11 @@
-package com.adam.nio.ntp;
+package com.adam.ntp;
 
-import com.adam.nio.ntp.core.ClockCompensator;
-import com.adam.nio.ntp.core.NtpServer;
-import com.adam.nio.ntp.exception.NtpException;
-import com.adam.nio.ntp.exception.ServerUnreachableException;
-import com.adam.nio.ntp.exception.StratumViolationException;
-import com.adam.nio.ntp.routing.NtpRouter;
+import com.adam.ntp.core.ClockCompensator;
+import com.adam.ntp.core.NtpServer;
+import com.adam.ntp.exception.NtpException;
+import com.adam.ntp.exception.ServerUnreachableException;
+import com.adam.ntp.exception.StratumViolationException;
+import com.adam.ntp.routing.NtpRouter;
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.NtpV3Packet;
 import org.apache.commons.net.ntp.TimeInfo;
@@ -63,8 +63,8 @@ public class NTPClient {
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10000; i++) {
-//            System.out.println("Current NTP time: " + NTPClient.getNetworkTime());
+        for (int i = 0; i < 800; i++) {
+            System.out.println("Current NTP time: " + NTPClient.getNetworkTime());
             NTPClient.getNetworkTime();
         }
         System.out.println(1);

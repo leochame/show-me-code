@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class NettyNtpClient {
+
     // NTP服务器地址，可以配置为国内的NTP服务器以提高访问速度
     private final String ntpServer;
     private final int ntpPort;
@@ -59,7 +60,6 @@ public class NettyNtpClient {
         }
         return instance;
     }
-    
     public static synchronized NettyNtpClient getInstance(String ntpServer, int ntpPort) {
         if (instance == null) {
             instance = new NettyNtpClient(ntpServer, ntpPort);
@@ -139,13 +139,11 @@ public class NettyNtpClient {
     public static void main(String[] args) throws Exception {
         NettyNtpClient client = NettyNtpClient.getInstance();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             CompletableFuture<Instant> future = client.getTime();
             Instant time = future.get(2, TimeUnit.SECONDS);
             System.out.println("Current NTP time: " + time);
-
         }
-        
         client.shutdown();
     }
 }

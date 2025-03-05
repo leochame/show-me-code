@@ -1,8 +1,8 @@
-package com.adam.nio.ntp.routing;
+package com.adam.ntp.routing;
 
-import com.adam.nio.ntp.core.NtpServer;
-import com.adam.nio.ntp.exception.NtpException;
-import com.adam.nio.ntp.exception.ServerUnreachableException;
+import com.adam.ntp.core.NtpServer;
+import com.adam.ntp.exception.NtpException;
+import com.adam.ntp.exception.ServerUnreachableException;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
