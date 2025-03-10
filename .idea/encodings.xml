@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Leetcode/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Leetcode/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acm-model/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acm-model/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/leetcode-model/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leet/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leet/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/leetcode-model/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leetcode-model/test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leetcode-model/test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/refactoring/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/refactoring/src/main/resources" charset="UTF-8" />
   </component>

@@ -8,10 +8,21 @@
         <option value="$PROJECT_DIR$/acm-mdoel/pom.xml" />
         <option value="$PROJECT_DIR$/acm-model/pom.xml" />
         <option value="$PROJECT_DIR$/refactoring/pom.xml" />
+        <option value="$PROJECT_DIR$/leet/pom.xml" />
+        <option value="$PROJECT_DIR$/Leetcode/pom.xml" />
+        <option value="$PROJECT_DIR$/leetcode-model/test/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/acm-model/pom.xml" />
+        <option value="$PROJECT_DIR$/leet/pom.xml" />
+        <option value="$PROJECT_DIR$/leetcode-model/pom.xml" />
+        <option value="$PROJECT_DIR$/refactoring/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
