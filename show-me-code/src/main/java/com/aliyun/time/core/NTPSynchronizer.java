@@ -60,7 +60,7 @@ public class NTPSynchronizer {
         
         // 输出同步结果
         if (syncSuccessful) {
-            System.out.println("时间同步完成, 偏移量: " + timeOffsetManager.getCurrentOffset() + "ms, 漂移率: " + 
+            System.out.println("时间同步完成, 偏移量: " + timeOffsetManager.getCurrentOffset() + "ms, 漂移率: " +
                              String.format("%.9f", timeOffsetManager.getCurrentOffset()) + " ms/ms");
         }
     }
@@ -104,6 +104,7 @@ public class NTPSynchronizer {
      * 3. 状态更新：成功响应更新ServerMetrics，失败触发熔断计数
      */
     private List<NTPResponse> waitForResponses() throws IOException {
+
         long startTime = System.currentTimeMillis();
         List<NTPResponse> responses = new ArrayList<>();
         Map<DatagramChannel, ServerState> channelMap = serverRegistry.getChannelMap();
@@ -116,55 +117,8 @@ public class NTPSynchronizer {
             if (readyChannels == 0) {
                 continue;
             }
-            
             // 处理就绪的通道
-            Set<SelectionKey> selectedKeys = selector.selectedKeys();
-            Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
-            
-            while (keyIterator.hasNext()) {
-                SelectionKey key = keyIterator.next();
-                keyIterator.remove();
-                
-                if (key.isReadable()) {
-                    DatagramChannel channel = (DatagramChannel) key.channel();
-                    ServerState state = channelMap.get(channel);
-                    
-                    if (state != null && state.responsePending) {
-                        try {
-                            // 接收响应
-                            ByteBuffer buffer = ByteBuffer.allocate(packetSize);
-                            channel.receive(buffer);
-                            buffer.flip();
-                            
-                            // 处理响应
-                            long receiveTime = System.currentTimeMillis();
-                            Date ntpTime = NTPPacketBuilder.processNTPResponse(buffer);
-                            
-                            // 计算往返时间和偏移
-                            long rtt = receiveTime - state.requestTime;
-                            long offset = ntpTime.getTime() - (state.requestTime + rtt/2);
-                            
-                            // 更新服务器指标
-                            ServerMetrics metrics = serverMetrics.get(state.config.host);
-                            metrics.recordSuccess(rtt, offset);
-                            
-                            // 收集有效响应
-                            responses.add(new NTPResponse(state.config, offset, rtt));
-                            
-                            System.out.println("收到来自 " + state.config.host + " 的响应, RTT: " + rtt + "ms, 偏移: " + offset + "ms");
-                            
-                            // 标记已响应
-                            state.responsePending = false;
-                        } catch (Exception e) {
-                            System.err.println("处理 " + state.config.host + " 的响应失败: " + e.getMessage());
-                            
-                            // 更新失败次数
-                            ServerMetrics metrics = serverMetrics.get(state.config.host);
-                            metrics.recordFailure();
-                        }
-                    }
-                }
-            }
+            processReadyChannels(responses);
             
             // 检查是否所有请求都已得到响应
             boolean allDone = true;
@@ -174,23 +128,78 @@ public class NTPSynchronizer {
                     break;
                 }
             }
-            
             if (allDone) {
                 break; // 所有请求都已响应，可以提前退出
             }
         }
-        
         // 处理超时未响应的服务器
-        for (ServerState state : channelMap.values()) {
+        handleTimeoutResponses();
+        
+        return responses;
+    }
+    /**
+     * 处理已就绪通道，读取并处理响应数据
+     */
+    private void processReadyChannels(List<NTPResponse> responses) {
+        Set<SelectionKey> selectedKeys = selector.selectedKeys();
+        Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+        while (keyIterator.hasNext()) {
+            SelectionKey key = keyIterator.next();
+            keyIterator.remove();
+
+            if (key.isReadable()) {
+                processChannelResponse(key, responses);
+            }
+        }
+    }
+    /**
+     * 处理单个通道的响应，并更新对应的服务器状态
+     */
+    private void processChannelResponse(SelectionKey key, List<NTPResponse> responses) {
+        DatagramChannel channel = (DatagramChannel) key.channel();
+        ServerState state = serverRegistry.getChannelMap().get(channel);
+
+        if (state != null && state.responsePending) {
+            try {
+                // 接收响应
+                ByteBuffer buffer = ByteBuffer.allocate(packetSize);
+                channel.receive(buffer);
+                buffer.flip();
+
+                // 处理响应，计算时间偏移
+                long receiveTime = System.currentTimeMillis();
+                Date ntpTime = NTPPacketBuilder.processNTPResponse(buffer);
+                long rtt = receiveTime - state.requestTime;
+                long offset = ntpTime.getTime() - (state.requestTime + rtt / 2);
+
+                // 更新服务器指标
+                ServerMetrics metrics = serverRegistry.getServerMetrics().get(state.config.host);
+                metrics.recordSuccess(rtt, offset);
+
+                // 收集有效响应
+                responses.add(new NTPResponse(state.config, offset, rtt));
+                System.out.println("收到来自 " + state.config.host + " 的响应, RTT: " + rtt + "ms, 偏移: " + offset + "ms");
+
+                // 标记已响应
+                state.responsePending = false;
+            } catch (Exception e) {
+                System.err.println("处理 " + state.config.host + " 的响应失败: " + e.getMessage());
+                ServerMetrics metrics = serverRegistry.getServerMetrics().get(state.config.host);
+                metrics.recordFailure();
+            }
+        }
+    }
+    /**
+     * 对于超时未响应的服务器进行失败记录
+     */
+    private void handleTimeoutResponses() {
+        for (ServerState state : serverRegistry.getChannelMap().values()) {
             if (state.responsePending) {
-                ServerMetrics metrics = serverMetrics.get(state.config.host);
+                ServerMetrics metrics = serverRegistry.getServerMetrics().get(state.config.host);
                 metrics.recordFailure();
                 state.responsePending = false;
-                
                 System.out.println("服务器 " + state.config.host + " 响应超时");
             }
         }
-        
-        return responses;
     }
 }
