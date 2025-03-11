@@ -4,7 +4,6 @@ import com.aliyun.time.model.NTPResponse;
 import com.aliyun.time.config.ServerConfig;
 import com.aliyun.time.model.ServerMetrics;
 import com.aliyun.time.model.ServerState;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -24,11 +23,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * 3. 负载均衡：基于RTT（往返时间）的最优服务器选择（selectBestResponse()）
  */
 public class ServerRegistry {
+
+    // 记录每个通道对应的服务器地址和配置
     private final Map<DatagramChannel, ServerState> channelMap = new HashMap<>();
+    // 以服务器主机名为键，存储ServerMetrics对象，跟踪失败次数、RTT（往返时间）等指标
     private final Map<String, ServerMetrics> serverMetrics = new ConcurrentHashMap<>();
+    // 预定义的服务器列表，分三个层级（阿里云、国家授时中心、公共NTP）
     private final List<ServerConfig> serverConfigs;
+    // 监听所有通道的读就绪事件，实现非阻塞通信
     private final Selector selector;
+    // 熔断参数
     private final int maxFailures;
+    // 熔断持续时间
     private final long breakDuration;
     
     public ServerRegistry(List<ServerConfig> serverConfigs, Selector selector, int maxFailures, long breakDuration) {
@@ -42,9 +48,9 @@ public class ServerRegistry {
      * 服务器初始化
      */
     public void initialize() throws IOException {
+        // 每个服务器独立通道，避免单点故障影响其他服务器
         for (ServerConfig config : serverConfigs) {
             try {
-                // 为每个服务器创建一个通道
                 DatagramChannel channel = DatagramChannel.open();
                 channel.configureBlocking(false);
                 channel.bind(null);
@@ -79,8 +85,8 @@ public class ServerRegistry {
     }
 
     /**
-     * 分层筛选
-     * 优先选择高可用层级
+     * 分层筛选：按服务器层级过滤响应，确保优先使用高优先级服务器
+     * Example：第一层（阿里云）响应存在时，忽略其他层级
      */
     public List<NTPResponse> filterByTier(List<NTPResponse> responses, int tier) {
         List<NTPResponse> result = new ArrayList<>();
@@ -94,10 +100,11 @@ public class ServerRegistry {
 
 
     /**
+     * 在通过层级筛选的响应中，选择RTT（往返时间）最小的服务器
      * 最小RTT原则降低网络延迟影响
-     * 负载均衡策略
      */
     public NTPResponse selectBestResponse(List<NTPResponse> responses) {
+        // TODO 熔断状态
         NTPResponse best = responses.get(0);
         for (int i = 1; i < responses.size(); i++) {
             if (responses.get(i).rtt < best.rtt) {

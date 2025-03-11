@@ -1,4 +1,4 @@
-package com.adam.version_3_0.time;
+package com.adam.version_3_0;
 
 import java.io.IOException;
 import java.net.InetAddress;

@@ -4,7 +4,6 @@ import com.aliyun.time.model.NTPPacketBuilder;
 import com.aliyun.time.model.NTPResponse;
 import com.aliyun.time.model.ServerMetrics;
 import com.aliyun.time.model.ServerState;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
@@ -24,8 +23,8 @@ public class NTPSynchronizer {
     private final int timeout;
     private final int packetSize;
     
-    public NTPSynchronizer(Selector selector, ServerRegistry serverRegistry, 
-                          TimeOffsetManager timeOffsetManager, int timeout, int packetSize) {
+    public NTPSynchronizer(Selector selector, ServerRegistry serverRegistry,
+                           TimeOffsetManager timeOffsetManager, int timeout, int packetSize) {
         this.selector = selector;
         this.serverRegistry = serverRegistry;
         this.timeOffsetManager = timeOffsetManager;
