@@ -1,4 +1,4 @@
-package com.aliyun.time;
+package com.adam.aliyun.time;
 
 import com.aliyun.time.core.NTPSynchronizer;
 import com.aliyun.time.config.ServerConfig;

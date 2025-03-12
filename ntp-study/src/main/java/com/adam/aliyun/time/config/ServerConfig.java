@@ -1,4 +1,4 @@
-package com.aliyun.time.config;
+package com.adam.aliyun.time.config;
 
 public class ServerConfig {
     public final String host;

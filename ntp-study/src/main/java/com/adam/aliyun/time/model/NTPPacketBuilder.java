@@ -1,4 +1,4 @@
-package com.aliyun.time.model;
+package com.adam.aliyun.time.model;
 
 import java.nio.ByteBuffer;
 import java.util.Date;

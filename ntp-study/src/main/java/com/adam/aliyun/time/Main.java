@@ -1,4 +1,4 @@
-package com.aliyun.time;
+package com.adam.aliyun.time;
 
 import java.util.Date;
 

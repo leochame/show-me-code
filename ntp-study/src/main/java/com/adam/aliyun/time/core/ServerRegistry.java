@@ -1,9 +1,9 @@
-package com.aliyun.time.core;
+package com.adam.aliyun.time.core;
 
-import com.aliyun.time.model.NTPResponse;
-import com.aliyun.time.config.ServerConfig;
-import com.aliyun.time.model.ServerMetrics;
-import com.aliyun.time.model.ServerState;
+import com.adam.aliyun.time.model.NTPResponse;
+import com.adam.aliyun.time.config.ServerConfig;
+import com.adam.aliyun.time.model.ServerMetrics;
+import com.adam.aliyun.time.model.ServerState;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;

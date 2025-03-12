@@ -1,7 +1,7 @@
-package com.aliyun.time.core;
+package com.adam.aliyun.time.core;
 
-import com.aliyun.time.filter.KalmanFilter;
-import com.aliyun.time.model.NTPResponse;
+import com.adam.aliyun.time.filter.KalmanFilter;
+import com.adam.aliyun.time.model.NTPResponse;
 
 import java.util.Date;
 import java.util.List;

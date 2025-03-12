@@ -1,6 +1,6 @@
-package com.aliyun.time.model;
+package com.adam.aliyun.time.model;
 
-import com.aliyun.time.config.ServerConfig;
+import com.adam.aliyun.time.config.ServerConfig;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
