@@ -1,4 +1,4 @@
-package com.adam.concurrent_programming.test;
+package com.adam.concurrent_programming.byMySlef;
 
 import java.util.HashSet;
 import java.util.concurrent.PriorityBlockingQueue;
