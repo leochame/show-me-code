@@ -63,7 +63,6 @@ public class ThreadPool {
                     task = null;
                 }
             }
-
             synchronized (workers) {
                 workers.remove(this);
             }
