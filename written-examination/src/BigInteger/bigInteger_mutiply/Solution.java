@@ -1,4 +1,4 @@
-package BigInteger.BigInteger_Mutiply;
+package BigInteger.bigInteger_mutiply;
 
 class Solution {
     public String multiply(String num1, String num2) {
