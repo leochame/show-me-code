@@ -1,6 +1,6 @@
 package com.strategy.context;
 
-import com.strategy.example.strategies.Strategy;
+import com.strategy.strategies.Strategy;
 
 public class Context {
    private Strategy strategy;

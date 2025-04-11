@@ -1,9 +1,9 @@
 package com.strategy;
 
 import com.strategy.context.Context;
-import com.strategy.example.strategies.OperationAdd;
-import com.strategy.example.strategies.OperationMultiply;
-import com.strategy.example.strategies.OperationSubtract;
+import com.strategy.strategies.OperationAdd;
+import com.strategy.strategies.OperationMultiply;
+import com.strategy.strategies.OperationSubtract;
 
 public class StrategyPatternDemo {
    public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.strategy.example.strategies;
+package com.strategy.strategies;
 
 public interface Strategy {
    public int doOperation(int num1, int num2);

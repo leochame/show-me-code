@@ -50,8 +50,8 @@ class MessageQueue{
 }
 
 final class Message{
-    private int id;
-    private Object value;
+    private final int id;
+    private final Object value;
 
     public Message(int id, Object value) {
         this.id = id;
