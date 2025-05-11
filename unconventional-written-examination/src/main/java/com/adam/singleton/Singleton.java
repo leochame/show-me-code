@@ -1,9 +1,9 @@
 package com.adam.singleton;
 
-import java.io.Serial;
 import java.io.Serializable;
 
-public final class Singleton implements Serializable {
+//public final class Singleton implements Serializable {
+public final class Singleton{
     private static volatile  Singleton instance = null;
 
     private Singleton(){}
@@ -20,11 +20,11 @@ public final class Singleton implements Serializable {
         }
     }
 
-    /**
-     * 防止序列化的时候出错；
-     */
-    @Serial
-    private Object readResolve() {
-        return instance;
-    }
+//    /**
+//     * 防止序列化的时候出错；
+//     */
+//    @Serial
+//    private Object readResolve() {
+//        return instance;
+//    }
 }
