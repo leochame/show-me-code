@@ -3,8 +3,8 @@ package DoublePoint;
 import java.util.ArrayList;
 import java.util.*;
 
-class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
+public class threeSum {
+    public List<List<Integer>> threeSumSolution(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         int n = nums.length;
         Arrays.sort(nums);
