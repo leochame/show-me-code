@@ -1,4 +1,4 @@
-package com.adam.Test;
+package com.adam.test;
 
 import java.util.ArrayList;
 import java.util.List;
